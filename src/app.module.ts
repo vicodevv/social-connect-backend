@@ -11,6 +11,7 @@ import { WebrtcModule } from './webrtc/webrtc.module';
 import { RedisModule } from './redis/redis.module';
 import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
+import { UserService } from './user/user.service';
 
 @Module({
   imports: [
@@ -22,6 +23,6 @@ import { UserModule } from './user/user.module';
     UserModule,
   ],
   controllers: [AppController, ChatController, UserController],
-  providers: [AppService, AuthService, WebrtcService],
+  providers: [AppService, AuthService, WebrtcService, UserService],
 })
 export class AppModule {}
