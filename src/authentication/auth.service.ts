@@ -4,6 +4,13 @@ import { createToken } from 'src/utils/createToken';
 
 @Injectable()
 export class AuthService {
+  /**
+   * Resgister a new user
+   * @param email The user's email
+   * @param password The user's password
+   * @returns The user record
+   * @throws Error if the user registration fails
+   */
   async registerUser(email: string, password: string): Promise<any> {
     try {
       const userRecord = await admin.auth().createUser({
@@ -17,6 +24,13 @@ export class AuthService {
     }
   }
 
+  /**
+   * Login a user
+   * @param email The user's email
+   * @param password The user's password
+   * @returns The user record and the JWT token
+   * @throws Error if the user login fails
+   */
   async loginUser(email: string, password: string): Promise<any> {
     try {
       const user = await admin.auth().getUserByEmail(email);
