@@ -1,5 +1,4 @@
-// chat.service.ts
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import * as admin from 'firebase-admin';
 import { CreateMessageDto } from '../dto/create-message.dto';
 import * as amqp from 'amqplib';
@@ -8,6 +7,7 @@ import * as amqp from 'amqplib';
 export class ChatService {
   private readonly firestore = admin.firestore();
   private readonly rabbitMQUrl = process.env.RABBITMQ_URL;
+  private readonly logger = new Logger(ChatService.name);
 
   async getChatMessages(roomId: string): Promise<any[]> {
     const snapshot = await this.firestore
@@ -25,11 +25,13 @@ export class ChatService {
     const message = {
       senderId,
       content,
-      // Add other fields as needed
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
     };
 
     await this.firestore.collection(`rooms/${roomId}/messages`).add(message);
+
+    // Log the message before sending it to RabbitMQ
+    this.logger.log(`Sending message to RabbitMQ: ${JSON.stringify(message)}`);
 
     // Send the message to RabbitMQ
     this.sendMessageToRabbitMQ(message, roomId);
@@ -41,24 +43,36 @@ export class ChatService {
     message: any,
     roomId: string,
   ): Promise<void> {
-    const connection = await amqp.connect(this.rabbitMQUrl);
-    const channel = await connection.createChannel();
+    try {
+      const connection = await amqp.connect(this.rabbitMQUrl);
+      const channel = await connection.createChannel();
 
-    const exchange = 'chat';
-    const routingKey = `room.${roomId}`;
+      const exchange = 'chat';
+      const routingKey = `room.${roomId}`;
 
-    // Declare exchange
-    await channel.assertExchange(exchange, 'direct', { durable: false });
+      // Declare exchange
+      await channel.assertExchange(exchange, 'direct', { durable: false });
 
-    // Send the message to the exchange with the specific routing key
-    await channel.publish(
-      exchange,
-      routingKey,
-      Buffer.from(JSON.stringify(message)),
-    );
+      // Send the message to the exchange with the specific routing key
+      await channel.publish(
+        exchange,
+        routingKey,
+        Buffer.from(JSON.stringify(message)),
+      );
 
-    // Close the connection
-    await channel.close();
-    await connection.close();
+      // Log successful publishing
+      this.logger.log(
+        `Message published to RabbitMQ: ${JSON.stringify(message)}`,
+      );
+
+      // Close the connection
+      await channel.close();
+      await connection.close();
+    } catch (error) {
+      // Log any errors that occur during RabbitMQ operations
+      this.logger.error(
+        `Error publishing message to RabbitMQ: ${error.message}`,
+      );
+    }
   }
 }

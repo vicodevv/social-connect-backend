@@ -22,7 +22,9 @@
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
-    "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/platform-express": "^9.4.3",
+    "@nestjs/platform-socket.io": "^10.2.10",
+    "@nestjs/websockets": "^10.2.10",
     "amqplib": "^0.10.3",
     "dotenv": "^16.3.1",
     "firebase": "^10.5.0",

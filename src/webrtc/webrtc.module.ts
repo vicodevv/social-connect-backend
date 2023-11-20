@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
-import { WebrtcController } from './webrtc.controller';
+import { WebRTCController } from './webrtc.controller';
+import { WebRTCGateway } from './webrtc.gateway';
+import { WebRTCService } from './webrtc.service';
 
 @Module({
-  controllers: [WebrtcController],
+  controllers: [WebRTCController],
+  providers: [WebRTCGateway, WebRTCService],
 })
-export class WebrtcModule {}
+export class WebRTCModule {}
