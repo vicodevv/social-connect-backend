@@ -12,6 +12,7 @@ import { RedisModule } from './redis/redis.module';
 import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
 import { UserService } from './user/user.service';
+import { ChatService } from './chat/chat.service';
 
 @Module({
   imports: [
@@ -23,6 +24,6 @@ import { UserService } from './user/user.service';
     UserModule,
   ],
   controllers: [AppController, ChatController, UserController],
-  providers: [AppService, AuthService, WebrtcService, UserService],
+  providers: [AppService, AuthService, WebrtcService, ChatService, UserService],
 })
 export class AppModule {}
