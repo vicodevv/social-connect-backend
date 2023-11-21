@@ -25,7 +25,7 @@ export class WebRTCService {
     }
 
     const room = this.rooms.get(roomId);
-    room.add(socket);
+    room.add(socket); 
 
     socket.join(roomId);
   }
