@@ -28,13 +28,13 @@ export class WebRTCGateway {
     );
   }
 
-  @SubscribeMessage('leaveRoom')
-  handleLeaveRoom(client: Socket, payload: { roomId: string }): void {
-    const { roomId } = payload;
-    this.webrtcService.leaveRoom(roomId, client);
-    client.emit(
-      'roomParticipants',
-      this.webrtcService.getRoomParticipants(roomId),
-    );
-  }
+  // @SubscribeMessage('leaveRoom')
+  // handleLeaveRoom(client: Socket, payload: { roomId: string }): void {
+  //   const { roomId } = payload;
+  //   this.webrtcService.leaveRoom(roomId, client);
+  //   client.emit(
+  //     'roomParticipants',
+  //     this.webrtcService.getRoomParticipants(roomId),
+  //   );
+  // }
 }
