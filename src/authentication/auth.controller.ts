@@ -31,4 +31,17 @@ export class AuthController {
       throw new Error('Login failed: ' + error.message);
     }
   }
+  // @Post('login')
+  // @HttpCode(200)
+  // async login(
+  //   @Body() { email, password }: { email: string; password: string },
+  // ) {
+  //   try {
+  //     const user = await this.authService.loginUser(email, password);
+  //     return user;
+  //   } catch (error) {
+  //     console.error('Error during user login:', error);
+  //     throw new Error('Login failed: ' + error.message);
+  //   }
+  // }
 }
