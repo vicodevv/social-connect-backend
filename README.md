@@ -61,6 +61,14 @@ Run the code
   npm run dev
 ```
 
+## Testing
+
+To run tests, run the following command
+
+```bash
+  npm run test
+```
+
 ## Entity Relationship Diagram
 
 ## Authentication
