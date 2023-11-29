@@ -11,4 +11,18 @@ export class UserService {
       throw new Error('Login failed: ' + error.message);
     }
   }
+
+  // async getUserDetails(email: string): {
+
+  // }
+
+  // async getUserByEmail(email: string): Promise<any> {
+  //   try {
+  //     const user = await admin.auth().getUserByEmail(email);
+  //     return user;
+  //   } catch (error) {
+  //     console.error('Error during user login:', error);
+  //     throw new Error('Login failed: ' + error.message);
+  //   }
+  // }
 }
