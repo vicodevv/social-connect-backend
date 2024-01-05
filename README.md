@@ -77,8 +77,6 @@ This API uses JWT for authentication. To get a token, you need to register and l
 
 ## Postman Documentation
 
-## Live Link
-
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
