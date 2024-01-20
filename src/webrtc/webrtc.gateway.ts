@@ -1,3 +1,4 @@
+// webrtc.gateway.ts
 import {
   SubscribeMessage,
   WebSocketGateway,
@@ -14,7 +15,7 @@ export class WebRTCGateway {
 
   @SubscribeMessage('createMeeting')
   handleCreateMeeting(): void {
-    const roomId = this.webrtcService.generateUniqueRoomId();
+    const roomId = this.webrtcService.generateUniqueRoomId(); // Call the method from the service
     this.server.emit('meetingCreated', roomId);
   }
 
@@ -27,14 +28,14 @@ export class WebRTCGateway {
       this.webrtcService.getRoomParticipants(roomId),
     );
   }
-
-  // @SubscribeMessage('leaveRoom')
-  // handleLeaveRoom(client: Socket, payload: { roomId: string }): void {
-  //   const { roomId } = payload;
-  //   this.webrtcService.leaveRoom(roomId, client);
-  //   client.emit(
-  //     'roomParticipants',
-  //     this.webrtcService.getRoomParticipants(roomId),
-  //   );
-  // }
 }
+
+// @SubscribeMessage('leaveRoom')
+// handleLeaveRoom(client: Socket, payload: { roomId: string }): void {
+//   const { roomId } = payload;
+//   this.webrtcService.leaveRoom(roomId, client);
+//   client.emit(
+//     'roomParticipants',
+//     this.webrtcService.getRoomParticipants(roomId),
+//   );
+// }
