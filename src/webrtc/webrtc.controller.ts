@@ -17,12 +17,14 @@ export class WebRTCController {
     return { roomId };
   }
 
-  @Get('join/:roomId') // Use a dynamic parameter for the room ID
+  @Get('join/:roomId')
   joinMeeting(@Param('roomId') roomId: string): { status: string } {
-    // You may want to perform additional logic here, such as checking if the room exists
-    // and if it's full before allowing a user to join.
-
-    // For now, simply return a success message.
+    this.webrtcGateway.handleJoinRoom(
+      { id: 'socketId' } as any,
+      {
+        roomId,
+      } as any,
+    );
     return { status: `Joined room ${roomId}` };
   }
 }
