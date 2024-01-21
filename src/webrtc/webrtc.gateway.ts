@@ -30,6 +30,7 @@ export class WebRTCGateway {
   }
 }
 
+//  TODO: Add the following methods to the WebRTCGateway class:
 // @SubscribeMessage('leaveRoom')
 // handleLeaveRoom(client: Socket, payload: { roomId: string }): void {
 //   const { roomId } = payload;
