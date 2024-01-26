@@ -9,6 +9,7 @@ export class ChatService {
   private readonly rabbitMQUrl = process.env.RABBITMQ_URL;
   private readonly logger = new Logger(ChatService.name);
 
+  // Get Messages Service
   async getChatMessages(roomId: string): Promise<any[]> {
     const snapshot = await this.firestore
       .collection(`rooms/${roomId}/messages`)
